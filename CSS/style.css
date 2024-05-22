@@ -2,7 +2,15 @@ h1 {
     margin-top: 30px;
     text-align: center;
     color:  rgb(118, 2, 46);
-    font-size: 23pt;
+    font-size: 33pt;
+    text-decoration: underline;
+}
+
+h3 {
+    margin: 15px;
+    text-align: center;
+    color: rgb(255, 162, 0);
+    font-size: 15pt;
 }
 
 .center-container {
