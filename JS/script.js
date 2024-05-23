@@ -4,6 +4,12 @@ let activePlayer = 'X';
 // Store an array of moves to determine who wins:
 let selectedSquares = [];
 
+// Create a function for playing sounds:
+function audio(audioURL) {
+    let audio = new Audio(audioURL);
+    audio.play();
+}
+
 // ========================================================================================================
 
 // Check whether anyone has won:
@@ -43,9 +49,10 @@ function checkWinConditions() {
 
     // The game is tied, if none of the above conditions are met but all 9 squares have been selected:
     else if (selectedSquares.length >= 9) {
-        Audio('./media/tie.mp3');
+        audio('./media/tie.mp3');
+        alert('You tied!');
         // Reset the game:
-        setTimeout(function () { resetGame(); }, 4000);
+        setTimeout(function () { resetGame(); }, 2000);
     }
 
     // Check for 3 strings in the array to check for each winning condition:
@@ -60,8 +67,16 @@ function checkWinConditions() {
 }
 
 
-// =================================================================================================
+// ======================================================================================
 
+// Temporarily disable the player's ability to click so that the computer can have a turn
+function disableClick() {
+    body.style.pointerEvents = 'none';
+    setTimeout(function () { body.style.pointerEvents = 'auto'; }, 1500);
+}
+
+
+// =================================================================================================
 
 function place_X_or_O(spaceNumber) {
     // Check whether the square has already been selected before, using .some method to check the array for the space number
@@ -93,7 +108,7 @@ function place_X_or_O(spaceNumber) {
         }
 
         // Play sound effect:
-        Audio('./media/place.mp3');
+        audio('./media/place.mp3');
 
         // If it is the computer's turn, disable clicking and pause:
         if (activePlayer === 'O') {
