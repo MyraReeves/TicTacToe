@@ -1,2 +1,3 @@
 # TicTacToe
-A simple JavaScript TicTacToe game
+
+A JavaScript TicTacToe game.
