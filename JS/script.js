@@ -4,11 +4,27 @@ let activePlayer = 'X';
 // Store an array of moves to determine who wins:
 let selectedSquares = [];
 
-// Create a function for playing sounds:
+
+// A function for playing sounds:
 function audio(audioURL) {
     let audio = new Audio(audioURL);
     audio.play();
 }
+
+
+// A function to reset the game after a tie or win:
+function resetGame() {
+    for (let i = 0; i < 9; i++) {
+        let square = document.getElementById(String(i));
+        // Delete the image:
+        square.style.backgroundImage = ' ';
+    }
+
+    // Empty the array to reset it:
+    selectedSquares = [];
+}
+
+
 
 // ============================================================
 // Use the HTML canvas to draw lines thru winning combinations:
@@ -52,7 +68,7 @@ function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
         c.lineWidth = 10;
 
         // Set the color of the line:
-        c.strokeStyle = 'rgba(220, 82, 250, 0.8)';
+        c.strokeStyle = 'rgb(0,0,0)';
 
 
         c.stroke();
@@ -80,9 +96,9 @@ function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
 
     // Call winning line sequence:
     disableClick();
-    audio('./media/winGame.mp3');
     animateLineDrawing();
-    setTimeout(function () { clear(); resetGame(); }, 1000);
+    audio('./media/winGame.mp3');
+    setTimeout(function () { clear(); resetGame(); }, 3000);
 
 }
 
