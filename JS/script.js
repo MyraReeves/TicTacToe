@@ -33,7 +33,32 @@ function place_X_or_O(spaceNumber) {
         else {
             activePlayer = 'X';
         }
+
+        // Play sound effect:
+        Audio('./media/place.mp3');
+
+        // If it is the computer's turn, disable clicking and pause:
+        if (activePlayer === 'O') {
+            disableClick();
+            setTimeout(function () { computersTurn(); } , 1000);
+        }
+        return true;
     }
 
 
+    // Have the computer chose a square at random on its turn:
+    function computersTurn() {
+        let success = false;
+        let pickASquare;
+        while (!success) {
+            // Choose a random number between 0 and 8 to select that square:
+            pickASquare = String(Math.floor(Math.random() * 9));
+
+            // Check whether the square has been selected already and if not, then place the O mark there:
+            if(place_X_or_O(pickASquare)) {
+                place_X_or_O(pickASquare);
+                success = true;
+            };
+        }
+    }
 }
