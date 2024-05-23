@@ -10,7 +10,85 @@ function audio(audioURL) {
     audio.play();
 }
 
-// ========================================================================================================
+// ============================================================
+// Use the HTML canvas to draw lines thru winning combinations:
+function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
+    const canvas = document.getElementById('win-lines');
+    const c = canvas.getContext('2d');
+
+    // Set the start of the x axis of the line:
+    let x1 = coordX1,
+
+        // Set the start of the y axis of the line:
+        y1 = coordY1,
+
+        // Set the end of the X axis:
+        x2 = coordX2,
+
+        // Set the end of the Y axis:
+        y2 = coordY2,
+
+        x = x1,
+        y = y1;
+
+
+
+    function animateLineDrawing() {
+        const animationLoop = requestAnimationFrame(animateLineDrawing);
+
+        // Clear content from the last loop iteration:
+        c.clearRect(0,0,608,608)
+
+        // Start a new path:
+        c.beginPath();
+
+        // Move to the starting point of the line:
+        c.moveTo(x1, y1);
+
+        // Specify the ending point of the line:
+        c.lineTo(x, y);
+
+        // Set the width of the line:
+        c.lineWidth = 10;
+
+        // Set the color of the line:
+        c.strokeStyle = 'rgba(220, 82, 250, 0.8)';
+
+
+        c.stroke();
+
+        if (x1 <= x2 && y1 <= y2) {
+            if (x < x2) {x += 10;}
+            if (y < y2) {y += 10;}
+            if (x >= x2 && y >= y2) {cancelAnimationFrame(animationLoop);}
+        }
+
+        // Account for a rising diagonal win:
+        if (x1 <= x2 && y1 >= y2) {
+            if (x < x2) {x += 10;}
+            if (y > y2) {y -= 10;}
+            if (x >= x2 && y <= y2) {cancelAnimationFrame(animationLoop);}
+        }
+    }
+
+    // Clear the canvas after the winning line is drawn:
+    function clear() {
+        const animationLoop = requestAnimationFrame(clear);
+        c.clearRect(0, 0, 608, 608);
+        cancelAnimationFrame(animationLoop);
+    }
+
+    // Call winning line sequence:
+    disableClick();
+    audio('./media/winGame.mp3');
+    animateLineDrawing();
+    setTimeout(function () { clear(); resetGame(); }, 1000);
+
+}
+
+
+
+// =============================
 
 // Check whether anyone has won:
 function checkWinConditions() {
