@@ -12,7 +12,7 @@ function audio(audioURL) {
 }
 
 
-// A function to reset the game after a tie or win:
+// A function to automatically reset the game at the end of a match:
 function resetGame() {
     for (let i = 0; i < 9; i++) {
         let square = document.getElementById(String(i));
@@ -98,7 +98,7 @@ function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
     disableClick();
     animateLineDrawing();
     audio('./media/winGame.mp3');
-    setTimeout(function () { clear(); resetGame(); }, 3000);
+    setTimeout(function() { clear(); resetGame(); }, 2000);
 
 }
 
