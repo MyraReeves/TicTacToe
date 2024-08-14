@@ -31,7 +31,7 @@ td {
     cursor: pointer;
     border: 4px solid rgb(118, 2, 46);
     padding: 90px;
-    /* width: 200px; */
+    width: 200px;
     filter: contrast(3);
 }
 
